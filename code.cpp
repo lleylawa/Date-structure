@@ -1,5 +1,7 @@
-#include <iostream> 
-#include <cmath>   
+#include <iostream>
+#include <cmath>
+#include <vector>
+#include <algorithm> // Include for std::sort
 
 using namespace std; 
 
@@ -75,6 +77,12 @@ bool operator<(const Date& date1, const Date& date2) {
         return date1.month < date2.month;
     return date1.day < date2.day;
 }
+
+// Function to sort an array of Date structures
+void sortDates(vector<Date>& dates) {
+    sort(dates.begin(), dates.end());
+}
+
 int main() {
     Date date1, date2; // Declare two Date variables
 
@@ -91,10 +99,19 @@ int main() {
         cout << "Error! Invalid date entered." << endl;
         return 1; // Exit the program with an error code
     }
-    cout << "First date: ";
-    printDate(date1);
-    cout << "Second date: ";
-    printDate(date2);
+    
+    // Create a vector of dates and add the input dates to it
+    vector<Date> dates = {date1, date2};
+
+    // Sort the dates
+    sortDates(dates);
+
+    // Output the sorted dates
+    cout << "Sorted dates: " << endl;
+    for (const Date& date : dates) {
+        printDate(date);
+    }
+
     cout << "Day of the week for first date: " << getDayOfWeek(date1) << endl;
     cout << "Day of the week for second date: " << getDayOfWeek(date2) << endl;
     cout << "Difference in days between the two dates: " << calculateDifference(date1, date2) << endl;
